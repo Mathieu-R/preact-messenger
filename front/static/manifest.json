@@ -1,0 +1,8 @@
+{
+  "name": "Preact - Messenger",
+  "scope": "/",
+  "background_color": "#220065",
+  "display": "standalone",
+  "start_url": "/",
+  "theme_color": "#22135E"
+}

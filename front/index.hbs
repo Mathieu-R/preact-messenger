@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>preact - messenger</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+    <link rel="icon" href="/static/img/icon.png">
+    <meta name="theme-color" content="#22135E">
+    <link rel="manifest" href="/static/manifest.json">
+    {{#each css}}
+        <link rel="stylesheet" href="{{.}}">
+    {{/each}}
+    {{#each lazyCss}}
+        <link rel="preload" as="style" href="{{.}}">
+    {{/each}}
+    {{#each scripts}}
+        <script src="{{.}}" defer></script>
+    {{/each}}
+</head>
+<body>
+    <div class="content">{{{content}}}</div>
+</body>
+</html>

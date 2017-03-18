@@ -1,0 +1,27 @@
+{
+  "name": "preact-chat",
+  "version": "1.0.0",
+  "description": "Simple chat to learn React",
+  "main": "back/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mathieu-R/preact-messenger.git"
+  },
+  "keywords": [
+    "preact",
+    "node"
+  ],
+  "author": "Mathieu-R",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mathieu-R/preact-messenger/issues"
+  },
+  "homepage": "https://github.com/Mathieu-R/preact-messenger#readme",
+  "dependencies": {
+    "preact": "^7.2.0",
+    "preact-render-to-string": "^3.6.0"
+  }
+}
