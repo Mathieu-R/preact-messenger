@@ -4,6 +4,6 @@ export class ConnectForm extends Component {
       <input type="text" name="name" placeholder="nom d'utilisateur...">
       <input type="text" name="email" placeholder="email...">
       <input type="submit" value="Envoyer">
-    </form>
+    </form>;
   }
 }

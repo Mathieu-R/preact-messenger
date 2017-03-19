@@ -8,10 +8,13 @@ const { readFile } = require('./utils');
 const index = require('../front/index');
 const PORT = 8080;
 
+express.static('../front/static');
+
 app.get('/', (req, res) => {
   res.send(index, {
-    css: ['/dist/style.css'],
-    lazycss: ['/dist/style.css'],
+    css: ['/static/style.css'],
+    lazyCss: ['/static/style.css'],
+    scripts: ['/static/build.js'],
     content: render(<App/>)
   });
 });

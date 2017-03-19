@@ -1,12 +1,11 @@
 const gulp = require('gulp');
+const gulpSequence = require('gulp-sequence');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const uglify = require('gulp-uglify');
-const gzip = require('gulp-gzip');
 const babel = require('gulp-babel');
 const gulpProcess = require('gulp-process');
 const gutil = require('gulp-util');
-const nunjucks = require('gulp-nunjucks');
 const del = require('del');
 
 const production = process.env.NODE_ENV == 'production';
@@ -24,7 +23,6 @@ gulp.task('css', _ => {
         .pipe(autoprefixer({
             browsers: ['last 2 versions']
         }))
-        //.pipe(gzip())
         .pipe(gulp.dest('./dist/'));
 });
 
@@ -33,9 +31,8 @@ gulp.task('js', _ => {
     return gulp.src('./front/static/js/**/*.js')
         .pipe(babel({
             presets: ['stage-3'],
-            plugins: ['transform-runtime', 'transform-es2015-modules-commonjs', ['transform-react-jsx', {'pragma': 'h'}]]
+            plugins: ['transform-es2015-modules-commonjs', ['transform-react-jsx', {'pragma': 'h'}]]
         }))
-        //.pipe(gzip())
         .pipe(gulp.dest('./dist/'));
 });
 
@@ -44,13 +41,13 @@ gulp.task('clean', function(done) {
   return del(['dist'], done);
 });
 
-gulp.task('build', gulp.parallel('sass', 'js'));
+gulp.task('build', gulpSequence(['sass', 'js']));
 
 gulp.task('watch', _ => {
-    gulp.watch('./front/static/sass/*.scss', gulp.parallel('sass'));
-    gulp.watch('./front/static/js/**/*.js', gulp.parallel('js'));
-})
+    gulp.watch('./front/static/sass/*.scss', gulpSequence('sass'));
+    gulp.watch('./front/static/js/**/*.js', gulpSequence('js'));
+});
 
 
 // Default task
-gulp.task('default', gulp.series('clean', gulp.parallel('build', 'watch')));
+gulp.task('default', gulpSequence('clean', ['build', 'watch']));
