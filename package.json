@@ -21,7 +21,10 @@
   },
   "homepage": "https://github.com/Mathieu-R/preact-messenger#readme",
   "dependencies": {
+    "express": "^4.15.2",
+    "handlebars": "^4.0.6",
     "preact": "^7.2.0",
-    "preact-render-to-string": "^3.6.0"
+    "preact-render-to-string": "^3.6.0",
+    "socket.io": "^1.7.3"
   }
 }
