@@ -44,10 +44,10 @@ gulp.task('clean', function(done) {
   return del(['dist'], done);
 });
 
-gulp.task('build', gulp.parallel('css', 'js'));
+gulp.task('build', gulp.parallel('sass', 'js'));
 
 gulp.task('watch', _ => {
-    gulp.watch('./front/static/css/*.css', gulp.parallel('css'));
+    gulp.watch('./front/static/sass/*.scss', gulp.parallel('sass'));
     gulp.watch('./front/static/js/**/*.js', gulp.parallel('js'));
 })
 
