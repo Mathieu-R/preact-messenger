@@ -1,4 +1,7 @@
 import { h, render, Component } from 'preact'
+import io from 'socket.io-client'
+const socket = io();
+
 
 export class MessageContainer extends Component {
   constructor(props) {
@@ -15,7 +18,7 @@ export class MessageContainer extends Component {
     return (
       <div class="chat__box">
         this.state.messages.map(message => {
-          <MessageBox pseudo={message.user} time={message.time} message={message.message}/>
+          <MessageBox pseudo={message.user} time={message.time} message={message.content}/>
         });
       </div>
     )

@@ -40,6 +40,11 @@ io.on('connection', socket => {
     io.emit('message', message);
   });
 
+  // Déconnection
+  socket.on('disconnect', _ => {
+    console.log('[INFO] User disconnected.');
+  })
+
 });
 
 server.listen(PORT, _ => {
