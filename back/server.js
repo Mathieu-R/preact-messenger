@@ -8,10 +8,10 @@ const { h } = require('preact');
 const render = require('preact-render-to-string');
 const { readFile } = require('./utils');
 const index = require('../front/index');
+const App = require('../front/static/js/components/app');
 const PORT = 8080;
-/** @jsx h */
 
-express.static('/static/', '../front/static');
+//express.static('/static/', '../front/static');
 
 app.get('/', (req, res) => {
   res.send(index({

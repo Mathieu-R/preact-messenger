@@ -6,6 +6,7 @@ const uglify = require('gulp-uglify');
 const babel = require('gulp-babel');
 const gulpProcess = require('gulp-process');
 const gutil = require('gulp-util');
+const sourcemaps = require('gulp-sourcemaps');
 const del = require('del');
 
 const production = process.env.NODE_ENV == 'production';
@@ -19,21 +20,35 @@ gulp.task('sass', _ => {
 
 // Compile css
 gulp.task('css', _ => {
-    return gulp.src('./front/static/css/*.css')
-        .pipe(autoprefixer({
-            browsers: ['last 2 versions']
-        }))
-        .pipe(gulp.dest('./dist/'));
+  return gulp.src('./front/static/css/*.css')
+    .pipe(autoprefixer({
+        browsers: ['last 2 versions']
+    }))
+    .pipe(gulp.dest('./dist/'));
 });
 
 // Compile JS
 gulp.task('js', _ => {
-    return gulp.src('./front/static/js/**/*.js')
-        .pipe(babel({
-            presets: ['stage-3'],
-            plugins: ['transform-es2015-modules-commonjs', ['transform-react-jsx', {'pragma': 'h'}]]
-        }))
-        .pipe(gulp.dest('./dist/'));
+  return gulp.src('./front/static/js/**/*.js')
+    .pipe(sourcemaps.init())
+      .pipe(babel({
+          presets: ['stage-3'],
+          plugins: ['transform-es2015-modules-commonjs', ['transform-react-jsx', {'pragma': 'h'}]]
+      }))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./dist/'));
+});
+
+// Compile Node
+gulp.task('node', _ => {
+  return gulp.src('./back/*.js')
+  .pipe(sourcemaps.init())
+    .pipe(babel({
+        presets: ['stage-3'],
+        plugins: ['transform-es2015-modules-commonjs', ['transform-react-jsx', {'pragma': 'h'}]]
+    }))
+  .pipe(sourcemaps.write())
+  .pipe(gulp.dest('./dist/'));
 });
 
 // Clean build directory
@@ -41,11 +56,12 @@ gulp.task('clean', function(done) {
   return del(['dist'], done);
 });
 
-gulp.task('build', gulpSequence(['sass', 'js']));
+gulp.task('build', gulpSequence(['sass', 'js', 'node']));
 
 gulp.task('watch', _ => {
-    gulp.watch('./front/static/sass/*.scss', gulpSequence('sass'));
-    gulp.watch('./front/static/js/**/*.js', gulpSequence('js'));
+  gulp.watch('./front/static/sass/*.scss', gulpSequence('sass'));
+  gulp.watch('./front/static/js/**/*.js', gulpSequence('js'));
+  gulp.watch('./back/*.js', gulpSequence('node'));
 });
 
 

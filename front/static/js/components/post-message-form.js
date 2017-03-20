@@ -7,7 +7,7 @@ export class PostMessageForm extends Component {
 
   sendMessage (evt) {
     const message = {
-      user: this.props.user
+      user: this.props.user,
       content: evt.target.message.value
     }
   }
