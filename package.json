@@ -5,7 +5,7 @@
   "main": "back/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parallelshell 'gulp' 'node back/server'"
+    "start": "concurrently -k \"gulp\" \"node back/server\""
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Mathieu-R/preact-messenger#readme",
   "dependencies": {
     "babel-preset-stage-3": "^6.22.0",
+    "concurrently": "^3.4.0",
     "global": "^4.3.1",
     "gulp": "^3.9.1",
     "parallelshell": "^2.0.0",
