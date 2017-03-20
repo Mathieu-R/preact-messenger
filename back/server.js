@@ -13,12 +13,12 @@ const PORT = 8080;
 express.static('../front/static');
 
 app.get('/', (req, res) => {
-  res.send(index, {
+  res.send(index({
     css: ['/static/style.css'],
     lazyCss: ['/static/style.css'],
     scripts: ['/static/build.js'],
-    content: render('<App/>')
-  });
+    content: render(<App/>)
+  }));
 });
 
 io.on('connection', socker => {
