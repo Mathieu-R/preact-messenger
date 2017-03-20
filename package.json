@@ -5,7 +5,8 @@
   "main": "back/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently -k \"gulp\" \"node dist/server\""
+    "start": "concurrently -k \"webpack-dev-server\" \"node dist/server\"",
+    "webpack": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -22,32 +23,28 @@
   },
   "homepage": "https://github.com/Mathieu-R/preact-messenger#readme",
   "dependencies": {
-    "babel-preset-stage-3": "^6.22.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
     "concurrently": "^3.4.0",
-    "global": "^4.3.1",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.1",
-    "gulp-handlebars": "^4.0.0",
-    "parallelshell": "^2.0.0",
+    "express": "^4.15.2",
+    "path": "^0.12.7",
     "preact": "^7.2.0",
-    "preact-render-to-string": "^3.6.0"
+    "preact-render-to-string": "^3.6.0",
+    "socket.io": "^1.7.3",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.2"
   },
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
     "babel-plugin-transform-react-jsx": "^6.23.0",
-    "del": "^2.2.2",
-    "express": "^4.15.2",
-    "gulp-autoprefixer": "^3.1.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-process": "^0.1.2",
-    "gulp-sass": "^3.1.0",
-    "gulp-sequence": "^0.4.6",
-    "gulp-sourcemaps": "^2.4.1",
-    "gulp-uglify": "^2.1.0",
-    "gulp-util": "^3.0.8",
+    "babel-preset-stage-3": "^6.22.0",
+    "extract-text-webpack-plugin": "^2.1.0",
     "handlebars": "^4.0.6",
-    "preact": "^7.2.0",
-    "preact-render-to-string": "^3.6.0",
-    "socket.io": "^1.7.3"
+    "handlebars-loader": "^1.4.0",
+    "node-sass": "^4.5.0",
+    "sass-loader": "^6.0.3",
+    "source-map-loader": "^0.2.0"
   }
 }
