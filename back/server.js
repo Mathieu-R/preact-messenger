@@ -10,7 +10,7 @@ const { readFile } = require('./utils');
 const index = require('../front/index');
 const PORT = 8080;
 
-express.static('../front/static');
+express.static('/static/', '../front/static');
 
 app.get('/', (req, res) => {
   res.send(index({
