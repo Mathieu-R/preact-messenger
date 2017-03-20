@@ -1,8 +1,9 @@
 const http = require('http');
 const express = require('express');
 const app = express();
+const server = http.createServer(app);
 const handlebars = require('handlebars');
-const io = require('socket.io');
+const io = require('socket.io')(server);
 const { h } = require('preact');
 const render = require('preact-render-to-string');
 const { readFile } = require('./utils');
@@ -24,6 +25,6 @@ io.on('connection', socker => {
   console.log('[INFO] User connected.');
 });
 
-http.createServer(app).listen(PORT, _ => {
+server.listen(PORT, _ => {
   console.log(`Preact-Messenger is waiting for you on port ${PORT}`);
 })
