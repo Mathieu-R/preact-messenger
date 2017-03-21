@@ -7,8 +7,8 @@ const io = require('socket.io')(server);
 const { h } = require('preact');
 const render = require('preact-render-to-string');
 const { readFile } = require('./utils');
-const index = require('../templates/index');
-const App = require('../scripts/components/app');
+const index = require('../front/index.hbs');
+const App = require('components/app');
 const PORT = 8080;
 
 app.use(express.static('/static/', '../../dist'));
@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
   res.send(index({
     css: ['/static/css/style.css'],
     lazyCss: ['/static/css/style.css'],
-    //scripts: ['/static/js/components/app.js'],
+    scripts: ['/static/js/app.bundle.js'],
     content: render(<App/>)
   }));
 });

@@ -1,3 +1,4 @@
+import { h, render, Component } from 'preact'
 import io from 'socket.io-client'
 const socket = io();
 
