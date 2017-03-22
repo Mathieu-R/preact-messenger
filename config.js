@@ -11,7 +11,7 @@ module.exports = {
         front: path.resolve(__dirname, 'front/static/js/components/app.js'),
         back: path.resolve(__dirname, 'back/server.js')
     },
-    vendor: ['react'],
+    vendor: ['preact'],
     devtool: production ? 'source-map' : 'eval-source-map',
     componentsPath: path.resolve(__dirname, 'front/static/js/components'),
     staticPath: path.resolve(__dirname, 'front/static')
