@@ -88,7 +88,9 @@ const front = {
 };
 
 const back = {
-    entry: [config.entry.back],
+    entry: {
+      server: config.entry.back
+    },
     output: {
       path: path.resolve('dist'),
       filename: '[name].bundle.js'
@@ -149,7 +151,7 @@ const common = {
       test: /\.(mp4|webm|wav|mp3|m4a|aac|oga)(\?.*)?$/,
       loader: 'url-loader',
       query: {
-        name: isDebug ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext]',
+        name: '[name]-[hash:7].[ext]',
         limit: 10000,
       }
     }]

@@ -1,14 +1,16 @@
-const http = require('http');
-const express = require('express');
+import http from 'http';
+import express from 'express';
+import handlebars from 'handlebars';
+import socketio from 'socket.io';
+import { h } from 'preact';
+import render from 'preact-render-to-string';
+import { readFile } from './utils';
+import index from '../front/index.hbs';
+import App from 'components/app';
+
 const app = express();
 const server = http.createServer(app);
-const handlebars = require('handlebars');
-const io = require('socket.io')(server);
-const { h } = require('preact');
-const render = require('preact-render-to-string');
-const { readFile } = require('./utils');
-const index = require('../front/index.hbs');
-const App = require('components/app');
+const io = socketio(server);
 const PORT = 8080;
 
 app.use(express.static('/static/', '../../dist'));
