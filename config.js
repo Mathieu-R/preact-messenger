@@ -2,6 +2,7 @@ const path = require('path');
 const production = process.env.NODE_ENV === "production";
 
 module.exports = {
+    title: 'preact - messenger', // <title> of index.html
     port: {
         front: 3000, // port for devServer
         back: 8080 // port for backend api (proxytable)

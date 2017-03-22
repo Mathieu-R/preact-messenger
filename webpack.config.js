@@ -50,12 +50,14 @@ if (production) {
     new webpack.NoEmitOnErrorsPlugin(), // do not build bundle if they have errors
     new webpack.NamedModulesPlugin(), // print more readable module names in console on HMR,
     //new StartServerPlugin('server.js'), // start server after build - only in developpment
-    new htmlWebpackPlugin({ // inject all the assets in the template
-      template: config.template
-    }),
-    new BundleAnalyzerPlugin() // analyse the bundles and their contents
+    new htmlWebpackPlugin({ // generate index.html
+      title: config.title,
+      filename: './front/index.html'
+    })
+    //new BundleAnalyzerPlugin() // analyse the bundles and their contents
   );
 };
+
 
 const front = {
   entry: {
@@ -65,7 +67,7 @@ const front = {
   output: {
     path: path.resolve('dist'),
     filename: '[name].bundle.js',
-    publicPath: '/static/'
+    publicPath: '/'
   },
   plugins: plugins,
   devServer: {
