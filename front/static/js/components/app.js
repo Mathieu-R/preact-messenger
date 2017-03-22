@@ -1,7 +1,7 @@
 import { h, render, Component } from 'preact'
 import SidePanel from './side-panel'
 import MessageContainer from './message-container'
-import { AppContainer } from 'react-hot-loader'
+//import { AppContainer } from 'react-hot-loader'
 
 class App extends Component {
   render() {
@@ -16,4 +16,4 @@ class App extends Component {
   }
 }
 
-render(<App/>, document.body);
+//render(<App/>, document.body);

@@ -5,6 +5,7 @@ const production = process.env.NODE_ENV === 'production';
 const StartServerPlugin = require('start-server-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
     filename: '[name].[contenthash].css',
@@ -49,9 +50,10 @@ if (production) {
     new webpack.NoEmitOnErrorsPlugin(), // do not build bundle if they have errors
     new webpack.NamedModulesPlugin(), // print more readable module names in console on HMR,
     //new StartServerPlugin('server.js'), // start server after build - only in developpment
-    new htmlWebpackPlugin({
+    new htmlWebpackPlugin({ // inject all the assets in the template
       template: config.template
-    })
+    }),
+    new BundleAnalyzerPlugin() // analyse the bundles and their contents
   );
 };
 
@@ -71,6 +73,7 @@ const front = {
       "*": `http://localhost:${config.port.back}`
     },
     contentBase: config.contentBase,
+    hotOnly: true
     historyApiFallback: true,
     port: config.port.front,
     compress: production,
