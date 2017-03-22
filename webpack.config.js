@@ -1,13 +1,14 @@
 const config = require('./config.js');
 const path = require('path');
 const webpack = require('webpack');
-const production = process.env.NODE_ENV === "production";
-const StartServerPlugin = require('start-server-webpack-plugin')
-const ExternalsPlugin = require('webpack2-externals-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const production = process.env.NODE_ENV === 'production';
+const StartServerPlugin = require('start-server-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css",
-    disable: process.env.NODE_ENV === "development"
+    filename: '[name].[contenthash].css',
+    disable: !production
 });
 
 const plugins = [
@@ -44,10 +45,15 @@ if (production) {
   );
 } else {
   plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin() // print more readable module names in console on HMR
+    new webpack.HotModuleReplacementPlugin(), // hot reload
+    new webpack.NoEmitOnErrorsPlugin(), // do not build bundle if they have errors
+    new webpack.NamedModulesPlugin(), // print more readable module names in console on HMR,
+    //new StartServerPlugin('server.js'), // start server after build - only in developpment
+    new htmlWebpackPlugin({
+      template: config.template
+    })
   );
-}
+};
 
 const front = {
   entry: {
@@ -87,25 +93,6 @@ const front = {
   }
 };
 
-const back = {
-    entry: {
-      server: config.entry.back
-    },
-    output: {
-      path: path.resolve('dist'),
-      filename: '[name].bundle.js'
-    },
-    target: 'node',
-    plugins: [
-      ...plugins,
-      new ExternalsPlugin({
-        type: 'commonjs',
-        include: __dirname + '/node_modules'
-      }),
-      new StartServerPlugin('server.bundle.js') // only in developpment
-  ]
-};
-
 const common = {
   devtool: config.devtool,
   resolve: {
@@ -139,7 +126,7 @@ const common = {
     },{
       test: /\.js|jsx$/,
       exclude: /node_modules/,
-      loader: 'babel-loader'
+      loader: ['react-hot-loader/webpack', 'babel-loader']
     },{
       test: /\.(ico|png|jpg|jpeg|gif|svg|woff2?|eot|ttf)$/,
       loader: "file-loader",
@@ -163,7 +150,4 @@ const common = {
   },
 };
 
-module.exports = [
-  Object.assign({} , common, front),
-  Object.assign({} , common, back)
-];
+module.exports = Object.assign({}, common, front);

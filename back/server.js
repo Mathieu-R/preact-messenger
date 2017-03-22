@@ -6,19 +6,21 @@ import { h } from 'preact';
 import render from 'preact-render-to-string';
 import { readFile } from './utils';
 import index from '../front/index.hbs';
-import App from 'components/app';
+import App from '../front/static/js/components/app';
 
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
+const production = process.env.NODE_ENV === 'production';
 const PORT = 8080;
 
-app.use(express.static('/static/', '../../dist'));
+//app.use(express.static('/static/', '../../dist'));
 
 app.get('/', (req, res) => {
+  // server-side-rendering preact components - in production (when assets are built)
   res.send(index({
-    css: ['/static/css/style.css'],
-    lazyCss: ['/static/css/style.css'],
+    css: ['/static/style.css'],
+    lazyCss: ['/static/style.css'],
     scripts: ['/static/app.bundle.js', '/static/vendor.bundle.js'],
     content: render(<App/>)
   }));
@@ -50,5 +52,5 @@ io.on('connection', socket => {
 });
 
 server.listen(PORT, _ => {
-  console.log(`Preact-Messenger is waiting for you on port ${PORT}`);
+  console.log(`[API] running on port ${PORT}`);
 })

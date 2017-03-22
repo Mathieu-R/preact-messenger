@@ -1,7 +1,7 @@
 import { h, render, Component } from 'preact'
+import MessageBox from './message-box'
 import io from 'socket.io-client'
-const socket = io();
-
+//const socket = io();
 
 export class MessageContainer extends Component {
   constructor(props) {
@@ -11,7 +11,6 @@ export class MessageContainer extends Component {
         // user
       ]
     };
-
   }
 
   render() {
