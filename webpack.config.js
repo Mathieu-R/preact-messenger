@@ -73,7 +73,7 @@ const front = {
       "*": `http://localhost:${config.port.back}`
     },
     contentBase: config.contentBase,
-    hotOnly: true
+    hotOnly: true,
     historyApiFallback: true,
     port: config.port.front,
     compress: production,
@@ -151,6 +151,9 @@ const common = {
       green: '\u001b[32m'
     }
   },
+  performance: {
+    hints: 'warning'
+  }
 };
 
 module.exports = Object.assign({}, common, front);

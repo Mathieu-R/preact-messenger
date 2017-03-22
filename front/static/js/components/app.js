@@ -16,4 +16,4 @@ class App extends Component {
   }
 }
 
-//render(<App/>, document.body);
+render(<App/>, document.body);
