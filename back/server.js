@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
   res.send(index({
     css: ['/static/css/style.css'],
     lazyCss: ['/static/css/style.css'],
-    scripts: ['/static/js/app.bundle.js'],
+    scripts: ['/static/app.bundle.js', '/static/vendor.bundle.js'],
     content: render(<App/>)
   }));
 });

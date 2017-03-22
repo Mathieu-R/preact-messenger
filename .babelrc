@@ -1,12 +1,12 @@
 {
   "sourceMaps": true,
   "presets": [
-    ["es2015", {"modules": false}],
+    ["es2015", {"modules": false}], 
      "react"
   ],
   "plugins": [
-    ["transform-es2015-modules-commonjs"], 
-    ["transform-decorators-legacy"], 
+    ["transform-es2015-modules-commonjs"],
+    ["transform-decorators-legacy"],
     ["transform-react-jsx", {"pragma": "h"}]
   ],
   "env": {

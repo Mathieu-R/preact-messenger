@@ -2,6 +2,7 @@ const config = require('./config.js');
 const path = require('path');
 const webpack = require('webpack');
 const production = process.env.NODE_ENV === "production";
+const StartServerPlugin = require('start-server-webpack-plugin')
 const ExternalsPlugin = require('webpack2-externals-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractSass = new ExtractTextPlugin({
@@ -10,7 +11,12 @@ const extractSass = new ExtractTextPlugin({
 });
 
 const plugins = [
-  extractSass
+  extractSass,
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'commons',
+    filename: 'commons.js',
+    minChunks: 2,
+  })
 ];
 
 if (production) {
@@ -37,7 +43,10 @@ if (production) {
     })
   );
 } else {
-  plugins.push(new webpack.HotModuleReplacementPlugin());
+  plugins.push(
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin() // print more readable module names in console on HMR
+  );
 }
 
 const front = {
@@ -50,13 +59,14 @@ const front = {
     filename: '[name].bundle.js',
     publicPath: '/static/'
   },
+  plugins: plugins,
   devServer: {
     proxy: {
       "*": `http://localhost:${config.port.back}`
     },
     contentBase: config.contentBase,
     historyApiFallback: true,
-    port: config.port.front, 
+    port: config.port.front,
     compress: production,
     inline: !production,
     hot: !production,
@@ -85,10 +95,12 @@ const back = {
     },
     target: 'node',
     plugins: [
-    new ExternalsPlugin({
-      type: 'commonjs',
-      include: __dirname + '/node_modules'
-    }),
+      ...plugins,
+      new ExternalsPlugin({
+        type: 'commonjs',
+        include: __dirname + '/node_modules'
+      }),
+      new StartServerPlugin('server.bundle.js') // only in developpment
   ]
 };
 
@@ -103,7 +115,7 @@ const common = {
   },
   module: {
     rules: [{
-      test: /\.hbs$/, 
+      test: /\.hbs$/,
       loader: "handlebars-loader"
     },{
       test: /\.scss$/,
@@ -111,28 +123,36 @@ const common = {
         // style-loader in developpment
         fallback: 'style-loader',
         use: [{
-          loader: "css-loader", 
+          loader: "css-loader",
           options: {
             sourceMap: true
           }
         },{
-          loader: "sass-loader", 
+          loader: "sass-loader",
           options: {
             sourceMap: true
           }
         }]
-      })  
-    },{ 
+      })
+    },{
       test: /\.js|jsx$/,
       exclude: /node_modules/,
       loader: 'babel-loader'
+    },{
+      test: /\.(ico|png|jpg|jpeg|gif|svg|woff2?|eot|ttf)$/,
+      loader: "file-loader",
+      query: {
+        limit: 10000,
+        name: '[name]-[hash:7].[ext]'
+      }
+    },{
+      test: /\.(mp4|webm|wav|mp3|m4a|aac|oga)(\?.*)?$/,
+      loader: 'url-loader',
+      query: {
+        name: isDebug ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext]',
+        limit: 10000,
+      }
     }]
-  },
-  plugins: plugins,
-  performance: {
-    maxAssetSize: 300,
-    maxEntrypointSize: 300,
-    hints: 'warning'
   },
   stats: {
     colors: {
