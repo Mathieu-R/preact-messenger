@@ -2,7 +2,7 @@ import { h, render, Component } from 'preact'
 import io from 'socket.io-client'
 const socket = io();
 
-export class ConnectForm extends Component {
+export default class ConnectForm extends Component {
   constructor(props) {
     super(props);
   }

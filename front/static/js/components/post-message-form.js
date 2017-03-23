@@ -1,6 +1,6 @@
 import { h, render, Component } from 'preact'
 
-export class PostMessageForm extends Component {
+export default class PostMessageForm extends Component {
   constructor(props) {
     super(props);
   }

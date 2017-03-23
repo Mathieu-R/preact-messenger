@@ -1,19 +1,23 @@
-import { h, render, Component } from 'preact'
-import SidePanel from './side-panel'
-import MessageContainer from './message-container'
-//import { AppContainer } from 'react-hot-loader'
+import { h, render } from 'preact'
+import Root from './root'
+import { AppContainer } from 'react-hot-loader' 
 
-class App extends Component {
-  render() {
-    return (
-      <section class="chat">
-        <SidePanel/>
-        <div class="chat__main">
-          <MessageContainer/>
-        </div>
-      </section>
+console.log('PREACT - MESSENGER.');
+
+const rendering = Component => {
+    render(
+        <AppContainer>
+            <Component/>
+        </AppContainer>,
+        document.querySelector('.content')
     );
-  }
+};
+
+rendering(Root);
+
+// react hot-reload
+if (module.hot) {
+    module.hot.accept('./root', _ => { rendering(Root) });
 }
 
-render(<App/>, document.body);
+

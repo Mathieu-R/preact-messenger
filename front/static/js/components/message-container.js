@@ -3,7 +3,7 @@ import MessageBox from './message-box'
 import io from 'socket.io-client'
 //const socket = io();
 
-export class MessageContainer extends Component {
+export default class MessageContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {

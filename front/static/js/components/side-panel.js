@@ -1,6 +1,6 @@
 import { h, render, Component } from 'preact'
 
-export class SidePanel extends Component {
+export default class SidePanel extends Component {
   render() {
     return (
       <aside class="user__panel">

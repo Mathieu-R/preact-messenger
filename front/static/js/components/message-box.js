@@ -1,6 +1,6 @@
 import { h, render, Component } from 'preact'
 
-export class MessageBox extends Component {
+export default class MessageBox extends Component {
     render() {
       return (
         <div class="message__bigblock" ng-repeat="block in chat.blocks">

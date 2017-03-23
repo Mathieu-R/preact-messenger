@@ -52,7 +52,8 @@ if (production) {
     //new StartServerPlugin('server.js'), // start server after build - only in developpment
     new htmlWebpackPlugin({ // generate index.html
       title: config.title,
-      filename: './front/index.html'
+      filename: './index.html',
+      inject: true
     })
     //new BundleAnalyzerPlugin() // analyse the bundles and their contents
   );
@@ -75,6 +76,7 @@ const front = {
       "*": `http://localhost:${config.port.back}`
     },
     contentBase: config.contentBase,
+    hot: true,
     hotOnly: true,
     historyApiFallback: true,
     port: config.port.front,

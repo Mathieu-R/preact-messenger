@@ -9,8 +9,8 @@ module.exports = {
     },
     contentBase: path.resolve(__dirname, 'front'),
     entry: {
-        front: ['react-hot-loader/patch', 'webpack/hot/poll?1000', path.resolve(__dirname, 'front/static/js/components/app.js')], // entrypoint for front js file
-        back: ['webpack/hot/poll?1000', path.resolve(__dirname, 'back/server.js')] // entrypoint for server js file
+        front: ['react-hot-loader/patch', path.resolve(__dirname, 'front/static/js/components/app.js')], // entrypoint for front js file
+        back: [path.resolve(__dirname, 'back/server.js')] // entrypoint for server js file
     },
     vendor: ['preact'],
     devtool: production ? 'source-map' : 'eval-source-map',
