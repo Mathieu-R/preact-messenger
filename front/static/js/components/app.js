@@ -1,21 +1,18 @@
 import { h, render } from 'preact'
-import Root from './root'
-import { AppContainer } from 'react-hot-loader' 
+import Root from './root' 
 
-console.log('PREACT - MESSENGER.');
+console.log('PREACT - MESSENGER');
 
 const rendering = Component => {
     render(
-        <AppContainer>
-            <Component/>
-        </AppContainer>,
+        <Component/>,
         document.querySelector('.content')
     );
 };
 
 rendering(Root);
 
-// react hot-reload
+// preact hmr
 if (module.hot) {
     module.hot.accept('./root', _ => { rendering(Root) });
 }

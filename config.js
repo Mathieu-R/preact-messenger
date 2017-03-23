@@ -9,7 +9,7 @@ module.exports = {
     },
     contentBase: path.resolve(__dirname, 'front'),
     entry: {
-        front: ['react-hot-loader/patch', path.resolve(__dirname, 'front/static/js/components/app.js')], // entrypoint for front js file
+        front: [path.resolve(__dirname, 'front/static/js/components/app.js')], // entrypoint for front js file
         back: [path.resolve(__dirname, 'back/server.js')] // entrypoint for server js file
     },
     vendor: ['preact'],

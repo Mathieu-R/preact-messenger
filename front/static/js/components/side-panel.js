@@ -8,8 +8,8 @@ export default class SidePanel extends Component {
         <hr/>
         <ul id="user__connected">
           <li class="fix" ng-repeat="user in chat.users">
-            <img id="chat__avatar" src={user.gravatar}/>
-            <div class="pseudo">{user.pseudo}</div>
+            <img id="chat__avatar"/>
+            <div class="pseudo"></div>
           </li>
         </ul>
       </aside>

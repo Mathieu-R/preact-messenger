@@ -1,13 +1,11 @@
 {
   "sourceMaps": true,
   "presets": [
-    ["es2015", {"modules": false}],
-     "react"
+    ["es2015", {"modules": false}]
   ],
   "plugins": [
     ["transform-es2015-modules-commonjs"],
     ["transform-decorators-legacy"],
-    ["transform-react-jsx", {"pragma": "h"}],
-    ["react-hot-loader/babel"]
+    ["transform-react-jsx", {"pragma": "h"}]
   ]
 }

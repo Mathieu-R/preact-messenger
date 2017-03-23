@@ -5,6 +5,7 @@ const production = process.env.NODE_ENV === 'production';
 const StartServerPlugin = require('start-server-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
@@ -23,6 +24,12 @@ const plugins = [
 
 if (production) {
   plugins.push(
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': production ? JSON.stringify('production') : JSON.stringify('development')
+      }
+    }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false
@@ -49,13 +56,13 @@ if (production) {
     new webpack.HotModuleReplacementPlugin(), // hot reload
     new webpack.NoEmitOnErrorsPlugin(), // do not build bundle if they have errors
     new webpack.NamedModulesPlugin(), // print more readable module names in console on HMR,
-    //new StartServerPlugin('server.js'), // start server after build - only in developpment
+    //new StartServerPlugin('server.js'), // start server after build - only in development
     new htmlWebpackPlugin({ // generate index.html
       title: config.title,
       filename: './index.html',
-      inject: true
-    })
-    //new BundleAnalyzerPlugin() // analyse the bundles and their contents
+    }),
+    new BundleAnalyzerPlugin(), // analyse the bundles and their contents
+    new DashboardPlugin({port: 8085})
   );
 };
 
