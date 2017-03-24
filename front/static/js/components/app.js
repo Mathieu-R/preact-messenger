@@ -1,20 +1,15 @@
 import { h, render } from 'preact'
-import Root from './root' 
-
-console.log('PREACT - MESSENGER');
+import Root from './root'
+import 'src/sass/style.scss'
 
 const rendering = Component => {
-    render(
-        <Component/>,
-        document.querySelector('.content')
-    );
+  const root = render(<Component/>, document.body, root);
 };
 
 rendering(Root);
 
 // preact hmr
 if (module.hot) {
-    module.hot.accept('./root', _ => { rendering(Root) });
+  require('preact/devtools'); // use react devtools only in dev
+  module.hot.accept('./root', _ => requestAnimationFrame(rendering(Root)));
 }
-
-
