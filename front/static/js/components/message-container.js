@@ -6,19 +6,30 @@ import io from 'socket.io-client'
 export default class MessageContainer extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       messages: [
-        // user
+        {
+          "user": "Mathieu",
+          "time": new Date(),
+          "content": "Como vaï Bro !!"
+        },
+        {
+          "user": "Arnoush",
+          "time": new Date(),
+          "content": "Bien oklm :)"
+        }
       ]
     };
+
   }
 
-  render() {
+  render({}, {messages}) {
     return (
       <div class="chat__box">
-        this.state.messages.map(message => {
+        {messages.map(message => {
           <MessageBox pseudo={message.user} time={message.time} message={message.content}/>
-        });
+        })}
       </div>
     )
   }

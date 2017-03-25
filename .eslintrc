@@ -2,8 +2,9 @@
   "env": {
     "browser": true
   },
-  "parserOptions":
+  "parserOptions": {
     "ecmaVersion": 2017
+  },
   "rules": {
     "space-before-function-paren": [2, {"named": "always", "anonymous": "always"}],
     "max-len": [2, 100, {
