@@ -1,6 +1,19 @@
 import { h, render, Component } from 'preact'
 
 export default class SidePanel extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      users: []
+    };
+  }
+
+  ComponentWillMount() {
+    const { socket } = this.props;
+    socket.on('user', user => this.setState({users: [...this.state.users, users]}));
+  }
+
   render() {
     return (
       <aside class="user__panel">

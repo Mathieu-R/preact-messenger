@@ -27,11 +27,10 @@ const PORT = 8080;
 });*/
 
 io.on('connection', socket => {
-  console.log('[INFO] User connected.');
   const users = [];
 
   // Envoi les utilisateurs au nouveau client
-  socket.emit('user', user);
+  users.forEach(user => socket.emit('user', user));
 
   //  Nouvel utilisateur
   socket.on('user', user => {

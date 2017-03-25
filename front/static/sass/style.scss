@@ -1,16 +1,22 @@
-.chat {
-  display: inline-flex;
-  padding: 10px;
-  width: 750px;
+html, body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
 }
+
+.chat {
+  display: flex;
+}
+
 .user__panel {
   text-align: center;
   color: white;
-  width: 250px;
-  height: 835px;
+  min-width: 200px;
   background-color: #2c3e50;
-  border-radius: 2px 0 0 2px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 }
+
 #chat__avatar {
   float: left;
 	width: 50px;
@@ -21,71 +27,91 @@
 	border: 1px solid #eee;
  	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
+
 .chat__main {
-  width: 450px;
-  padding: 0 5px;
-  border-radius: 0 2px 0 0;
+  width: 100%;
 }
+
 .chat__box {
   height: 650px;
   background-color: white;
   padding: 5px;
 }
+
 .message__bigblock h3 {
   display: inline-block;
   margin: 0;
   font-family: Raleway;
 }
+
 .message__bigblock h5 {
   display: inline-block;
   margin-left: 5px;
   margin-bottom: 0;
   font-family: Ubuntu;
 }
+
 .message__block {
   padding: 5px;
-  border-radius: 0 2px 2px 2px;
+  border-radius: 3px;
 }
+
 #message {
   padding: 0 5px;
   color: white;
   font-family: Lato;
 }
+
 .chat__input {
-  padding: 10px;
-  color: white;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
-  border-radius: 5px;
+  display: flex;
+  background: #f3f3f3;
+  padding: 7px 3px;
+  height: 35px;
 }
-.chat__input textarea {
+
+.form_username, .form_email, .chat__input textarea {
   width: 100%;
-  border: 0;
-  background: rgba(0,0,0,.15);
-  margin-bottom: 10px;
-  color: white;
+  line-height: 23px;
+  font-size: 16px;
+  padding: 5px;
+  margin-right: 5px;
+  background: #fff;
+  color: black;
+  border: .1px solid lightgray;
+  border-radius: 15px;
+  outline: none;
 }
-.chat__input input[type=submit] {
-  margin: 0;
+
+.chat__input button[type=submit] {
+  background: none;
+  border: none;
+  outline: none;
 }
+
 #title__connected {
   font-family: Lato;
 }
+
 #user__connected {
   padding-left: 20px;
   font-family: Raleway;
   list-style: none;
 }
+
 .messageByMe {
-  background: #27ae60;
-}
-.messageByAnother {
   background: #2980b9;
 }
+
+.messageByAnother {
+  background: #BFBFBF;
+}
+
 .fix:after {
   content: '';
   clear: both;
   display: block;
 }
+
 .pseudo {
   position: relative;
   top: 32px;

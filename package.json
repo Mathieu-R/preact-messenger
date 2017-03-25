@@ -5,9 +5,9 @@
   "main": "back/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently -k \"yarn server\" \"yarn dev\"",
+    "dev": "concurrently -k \"yarn server\" \"yarn dev-server\"",
     "server": "babel-node back/server.js",
-    "dev": "webpack-dev-server",
+    "dev-server": "webpack-dev-server",
     "build": "rm -rf ./dist && webpack"
   },
   "repository": {
@@ -27,6 +27,7 @@
   "dependencies": {
     "concurrently": "^3.4.0",
     "express": "^4.15.2",
+    "file-loader": "^0.10.1",
     "preact": "^7.2.0",
     "preact-render-to-string": "^3.6.0",
     "socket.io": "^1.7.3"
