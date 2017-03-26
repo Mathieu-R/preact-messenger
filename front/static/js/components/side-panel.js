@@ -11,7 +11,7 @@ export default class SidePanel extends Component {
 
   ComponentWillMount() {
     const { socket } = this.props;
-    socket.on('user', user => this.setState({users: [...this.state.users, users]}));
+    socket.on('user', user => this.setState({users: [...this.state.users, user]}));
   }
 
   render() {
