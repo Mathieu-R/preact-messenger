@@ -1,4 +1,5 @@
 import { h, render, Component } from 'preact'
+import gravatar from 'gravatar'
 
 export default class SidePanel extends Component {
   constructor(props) {
@@ -10,20 +11,20 @@ export default class SidePanel extends Component {
   }
 
   ComponentWillMount() {
-    const { socket } = this.props;
-    socket.on('user', user => this.setState({users: [...this.state.users, user]}));
-  }
+    }
 
-  render() {
+  render({}, {users}) {
     return (
       <aside class="user__panel">
         <h2 id="title__connected">Utilisateurs</h2>
         <hr/>
         <ul id="user__connected">
-          <li class="fix" ng-repeat="user in chat.users">
-            <img id="chat__avatar"/>
-            <div class="pseudo"></div>
+        {users.map(user => {
+          <li class="fix">
+            <img id="chat__avatar" src={gravatar(user.email, {s: '50'})}/>
+            <div class="pseudo">{user.pseudo}</div>
           </li>
+        })}
         </ul>
       </aside>
     )

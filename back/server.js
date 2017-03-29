@@ -34,6 +34,7 @@ io.on('connection', socket => {
 
   //  Nouvel utilisateur
   socket.on('user', user => {
+    console.log(user);
     users.push(user);
     io.emit('user', user);
   });

@@ -10,8 +10,11 @@ export default class PostMessageForm extends Component {
     evt.preventDefault();
     const message = {
       user: this.props.user,
+      time: new Date(),
       content: evt.target.message.value
     }
+
+    socket.emit('message', message);
   }
 
   render() {

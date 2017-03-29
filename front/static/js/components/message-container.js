@@ -12,12 +12,12 @@ export default class MessageContainer extends Component {
         {
           "user": "Mathieu",
           "time": new Date(),
-          "content": "Como vaï Bro !!"
+          "content": ["Como vaï Bro !!"]
         },
         {
           "user": "Arnoush",
           "time": new Date(),
-          "content": "Bien oklm :)"
+          "content": ["Bien oklm :)"]
         }
       ]
     };
@@ -28,7 +28,7 @@ export default class MessageContainer extends Component {
     return (
       <div class="chat__box">
         {messages.map(message => {
-          <MessageBox pseudo={message.user} time={message.time} message={message.content}/>
+          <MessageBox pseudo={message.user} time={message.time} messages={message.content}/>
         })}
       </div>
     )
