@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently -k \"yarn server\" \"yarn dev-server\"",
     "server": "babel-node back/server.js",
-    "dev-server": "webpack-dashboard -- webpack-dev-server -- config webpack.config.js",
+    "dev-server": "webpack-dev-server -- config webpack.config.js",
+    "dashboard": "webpack-dashboard -- webpack-dev-server -- config webpack.config.js",
     "build": "rm -rf ./dist && webpack"
   },
   "repository": {
