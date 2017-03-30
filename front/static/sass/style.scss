@@ -71,6 +71,7 @@ html, body {
 
 .form_username, .form_email, .chat__input textarea {
   width: 100%;
+  resize: none;
   line-height: 23px;
   font-size: 16px;
   padding: 5px;

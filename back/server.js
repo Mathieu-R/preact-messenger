@@ -36,12 +36,12 @@ io.on('connection', socket => {
   socket.on('user', user => {
     console.log(user);
     users.push(user);
-    io.emit('user', user);
+    socket.emit('user', user);
   });
 
   // Nouveau message
   socket.on('message', message => {
-    io.emit('message', message);
+    socket.emit('message', message);
   });
 
   // Déconnection

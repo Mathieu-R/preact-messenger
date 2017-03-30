@@ -11,15 +11,19 @@ export default class App extends Component {
     super(props);
 
     this.state = {
+      isAuthenticated: false,
+      currentUser: {},
       users: [],
       messages: [],
-      isAuthenticated: false
     }
+
+    this.connectUser = this.connectUser.bind(this);
   }
 
   ComponentDidMount() {
-    socket.on('user', user => this.setState({users: [...this.state.users, user]}));
+    socket.on('user', user => console.log(user))//this.setState({users: [...this.state.users, user]}));
     socket.on('message', message => {
+      console.log('ROOT', message)
       if (this.state.messages[messages.length - 1].user.name === message.user.name) {
         //this.setState({messages})
         return;
@@ -30,9 +34,10 @@ export default class App extends Component {
 
   connectUser(evt) {
     evt.preventDefault();
-    const self = this;
-    const name = evt.target.name.value;
-    const email = evt.target.email.value;
+    
+    const form = document.connectForm;
+    const name = form.name.value;
+    const email = form.email.value;
 
     if (name === '' || email === '') {
       return;
@@ -43,23 +48,24 @@ export default class App extends Component {
       name,
       email
     };
-    console.log(user);
+
     // Connect user
     socket.emit('user', user);
 
-    self.setState({
-      isAuthenticated: true
+    this.setState({
+      isAuthenticated: true,
+      currentUser: user
     })
   }
 
-  render({}, {users, messages, isAuthenticated}) {
+  render({}, {isAuthenticated, currentUser, users, messages}) {
     return (
       <section class="chat">
         <SidePanel users={users}/>
         <div class="chat__main">
           <MessageContainer messages={messages}/>
           { isAuthenticated ? (
-            <PostMessageForm/>
+            <PostMessageForm socket={socket} user={currentUser}/>
           ) : (
             <ConnectForm socket={socket} connectUser={this.connectUser}/>
           )}

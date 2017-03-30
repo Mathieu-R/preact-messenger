@@ -9,7 +9,7 @@ export default class ConnectForm extends Component {
 
   render({connectUser}) {
     return (
-      <form onSubmit={this.props.connectUser} class="chat__input">
+      <form name="connectForm" onSubmit={this.props.connectUser} class="chat__input">
         <input type="text" class="form_username" name="name" placeholder="nom d'utilisateur..."/>
         <input type="text" class="form_email" name="email" placeholder="email..."/>
         <button type="submit">

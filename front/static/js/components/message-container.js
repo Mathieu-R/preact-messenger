@@ -25,6 +25,7 @@ export default class MessageContainer extends Component {
   }
 
   render({}, {messages}) {
+    console.log(messages)
     return (
       <div class="chat__box">
         {messages.map(message => {
