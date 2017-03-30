@@ -54,6 +54,9 @@ module.exports = env => {
 		plugins: setup(isProd),
 		devtool: isProd ? 'eval' : 'eval-source-map',
 		devServer: {
+      proxy: {
+        '*' : 'http://localhost:8080'
+      },
 			contentBase: dist,
 			port: process.env.PORT || 3000,
 			historyApiFallback: true,

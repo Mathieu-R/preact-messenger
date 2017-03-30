@@ -26,27 +26,31 @@ const PORT = 8080;
   }));
 });*/
 
-io.on('connection', socket => {
+io.on('connect', socket => {
   const users = [];
+  let me;
 
   // Envoi les utilisateurs au nouveau client
   users.forEach(user => socket.emit('user', user));
+  socket.emit('hello', 'hello');
 
   //  Nouvel utilisateur
   socket.on('user', user => {
-    console.log(user);
+    me = user;
     users.push(user);
-    socket.emit('user', user);
+    io.emit('user', user);
   });
 
   // Nouveau message
   socket.on('message', message => {
-    socket.emit('message', message);
+    io.emit('message', message);
   });
 
   // Déconnection
   socket.on('disconnect', _ => {
-    console.log('[INFO] User disconnected.');
+    users.splice(users.indexOf(me), 1);
+    console.log(me);
+    console.log(`[INFO] ${me} disconnected.`);
   })
 
 });

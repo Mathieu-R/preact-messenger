@@ -4,7 +4,7 @@ import MessageContainer from './message-container'
 import ConnectForm from './connect-form'
 import PostMessageForm from './post-message-form'
 import io from 'socket.io-client'
-const socket = io('localhost:8080');
+const socket = io('http://localhost:8080');
 
 export default class App extends Component {
   constructor(props) {
@@ -32,9 +32,15 @@ export default class App extends Component {
     });
   }
 
+  ComponentWillUnMount() {
+    socket.on('disconnect', _ => {
+      this.setState({users: users.splice(this.state.users.indexOf(me), 1)});
+    })
+  }
+
   connectUser(evt) {
     evt.preventDefault();
-    
+
     const form = document.connectForm;
     const name = form.name.value;
     const email = form.email.value;
