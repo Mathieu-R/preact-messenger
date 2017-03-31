@@ -3,6 +3,7 @@ html, body {
   margin: 0;
   width: 100%;
   min-height: 100vh;
+  font-family: 'Open sans', 'Arial', 'sans serif'
 }
 
 .chat {
@@ -17,15 +18,31 @@ html, body {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
+#title__connected {
+  font-family: Lato;
+}
+
+#user__connected {
+  padding-left: 20px;
+  list-style: none;
+
+  .single-user {
+    display: flex;
+  }
+}
+
 #chat__avatar {
-  float: left;
 	width: 50px;
 	height: 50px;
-	margin: 1em auto;
+	margin: 5px 10px;
 	background-size: cover;
-	border-radius: 99em;
-	border: 1px solid #eee;
+	border-radius: 50px;
+	border: 2px solid #eee;
  	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+.pseudo {
+  align-self: center;
 }
 
 .chat__main {
@@ -36,24 +53,6 @@ html, body {
   height: 650px;
   background-color: white;
   padding: 5px;
-}
-
-.message__bigblock h3 {
-  display: inline-block;
-  margin: 0;
-  font-family: Raleway;
-}
-
-.message__bigblock h5 {
-  display: inline-block;
-  margin-left: 5px;
-  margin-bottom: 0;
-  font-family: Ubuntu;
-}
-
-.message__block {
-  padding: 5px;
-  border-radius: 3px;
 }
 
 #message {
@@ -89,32 +88,43 @@ html, body {
   outline: none;
 }
 
-#title__connected {
-  font-family: Lato;
-}
-
-#user__connected {
-  padding-left: 20px;
-  font-family: Raleway;
-  list-style: none;
-}
-
 .messageByMe {
-  background: #2980b9;
+  justify-content: flex-end;
+
+  .message__block {
+    background: #2980b9;
+  }
 }
 
 .messageByAnother {
-  background: #BFBFBF;
+  justify-content: flex-start;
+
+  .message__block {
+    background: #BFBFBF;
+  }
 }
 
-.fix:after {
-  content: '';
-  clear: both;
-  display: block;
-}
+.messageByMe, .messageByAnother {
+  display: flex;
+  flex-direction: column;
+  width: 47%;
 
-.pseudo {
-  position: relative;
-  top: 32px;
-  left: -40px;
+  h3 {
+    display: inline-block;
+    margin: 0;
+    font-family: Raleway;
+  }
+
+  h5 {
+    display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 0;
+    font-family: Ubuntu;
+  }
+
+  .message__block {
+    padding: 5px;
+    border-radius: 3px;
+  }
+
 }

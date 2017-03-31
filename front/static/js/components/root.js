@@ -11,21 +11,22 @@ export default class App extends Component {
 
     this.state = {
       isAuthenticated: false,
+      userAlreadyExists: false,
       currentUser: {},
       users: [],
-      messages: [],
-    }
+      messages: []
+    };
 
     this.connectUser = this.connectUser.bind(this);
   }
 
   componentDidMount() {
     this.socket = io('http://localhost:8080');
-    console.log(this.socket);
-    this.socket.on('user', user => console.log(user))//this.setState({users: [...this.state.users, user]}));
+
+    this.socket.on('user', user => this.setState({users: [...this.state.users, user]}));
+    this.socket.on('user:alreadyExists', message => this.setState({userAlreadyExists: true}))
     this.socket.on('message', message => {
-      console.log('ROOT', message)
-      if (this.state.messages[messages.length - 1].user.name === message.user.name) {
+      if (this.state.messages.length > 0 && this.state.messages[this.state.messages.length - 1].user.name === message.user.name) {
         //this.setState({messages})
         return;
       }
@@ -64,13 +65,13 @@ export default class App extends Component {
       currentUser: user
     })
   }
-
+  // TODO manage if user already exists (popup,...)
   render({}, {isAuthenticated, currentUser, users, messages}) {
     return (
       <section class="chat">
         <SidePanel users={users}/>
         <div class="chat__main">
-          <MessageContainer messages={messages}/>
+          <MessageContainer currentUser={currentUser} messages={messages}/>
           { isAuthenticated ? (
             <PostMessageForm socket={this.socket} user={currentUser}/>
           ) : (
