@@ -16,7 +16,7 @@ export default class PostMessageForm extends Component {
     const message = {
       user: this.props.user,
       time: new Date(),
-      content: form.message.value
+      content: [form.message.value]
     }
 
     socket.emit('message', message);

@@ -4,7 +4,6 @@ import MessageContainer from './message-container'
 import ConnectForm from './connect-form'
 import PostMessageForm from './post-message-form'
 import io from 'socket.io-client'
-const socket = io('http://localhost:8080');
 
 export default class App extends Component {
   constructor(props) {
@@ -20,9 +19,11 @@ export default class App extends Component {
     this.connectUser = this.connectUser.bind(this);
   }
 
-  ComponentDidMount() {
-    socket.on('user', user => console.log(user))//this.setState({users: [...this.state.users, user]}));
-    socket.on('message', message => {
+  componentDidMount() {
+    this.socket = io('http://localhost:8080');
+    console.log(this.socket);
+    this.socket.on('user', user => console.log(user))//this.setState({users: [...this.state.users, user]}));
+    this.socket.on('message', message => {
       console.log('ROOT', message)
       if (this.state.messages[messages.length - 1].user.name === message.user.name) {
         //this.setState({messages})
@@ -32,7 +33,7 @@ export default class App extends Component {
     });
   }
 
-  ComponentWillUnMount() {
+  componentWillUnmount() {
     socket.on('disconnect', _ => {
       this.setState({users: users.splice(this.state.users.indexOf(me), 1)});
     })
@@ -56,7 +57,7 @@ export default class App extends Component {
     };
 
     // Connect user
-    socket.emit('user', user);
+    this.socket.emit('user', user);
 
     this.setState({
       isAuthenticated: true,
@@ -71,9 +72,9 @@ export default class App extends Component {
         <div class="chat__main">
           <MessageContainer messages={messages}/>
           { isAuthenticated ? (
-            <PostMessageForm socket={socket} user={currentUser}/>
+            <PostMessageForm socket={this.socket} user={currentUser}/>
           ) : (
-            <ConnectForm socket={socket} connectUser={this.connectUser}/>
+            <ConnectForm socket={this.socket} connectUser={this.connectUser}/>
           )}
         </div>
       </section>

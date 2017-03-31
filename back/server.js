@@ -26,7 +26,7 @@ const PORT = 8080;
   }));
 });*/
 
-io.on('connect', socket => {
+io.on('connection', socket => {
   const users = [];
   let me;
 
@@ -38,12 +38,12 @@ io.on('connect', socket => {
   socket.on('user', user => {
     me = user;
     users.push(user);
-    io.emit('user', user);
+    socket.broadcast.emit('user', user);
   });
 
   // Nouveau message
   socket.on('message', message => {
-    io.emit('message', message);
+    socket.broadcast.emit('message', message);
   });
 
   // Déconnection
