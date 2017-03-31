@@ -1,8 +1,12 @@
 import http from 'http';
 import express from 'express';
+import dotenv from 'dotenv'
 import handlebars from 'handlebars';
 import socketio from 'socket.io';
 import mongoose from 'mongoose';
+import session from 'express-session';
+import connectRedis from 'connect-redis';
+import ios from 'socket.io-express-session';
 import {h} from 'preact';
 import render from 'preact-render-to-string';
 import {readFile} from './utils';
@@ -10,17 +14,28 @@ import index from '../front/index.hbs';
 import {getMessages, postMessage} from './controllers/messages';
 //import App from '../front/static/js/components/app';
 
+dotenv.config(); // init dotenv
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
+const RedisStore = connectRedis(session);
 const production = process.env.NODE_ENV === 'production';
 const PORT = 8080;
-const DBURL = 'mongodb://localhost:27017/preact-messenger';
+const DBURL = process.env.DBURL;
 
 mongoose.Promise = global.Promise;
 mongoose.connect(DBURL);
 
 const users = [];
+const sessionConfig = {
+  store: new RedisStore(),
+  secret: process.env.SECRET,
+  resave: true,
+  saveUninitialized: true
+}
+
+app.use(session(sessionConfig));
+io.use(ios(session(sessionConfig)));
 
 //app.use(express.static('/static/', '../../dist'));
 
@@ -41,29 +56,33 @@ function processDate(date) {
 }
 
 function checkUser(userToConnect) {
-  const userExists = users.find(user => user.name === userToConnect.name);
-  if (userExists) {
-    Promise.resolve(true);
-  }
-  Promise.resolve(false);
+  return new Promise((resolve, reject) => {
+    const userExists = users.find(user => user.name === userToConnect.name);
+    if (userExists) {
+      reject("Désolé mais ce nom d'utilisateur existe déjà");
+    }
+    resolve();
+  })
 }
 
 io.on('connection', async socket => {
+  console.log(socket.handshake.session);
   // Envoi les utilisateurs au nouveau client
   users.forEach(user => socket.emit('user', user));
-  const messages = await getMessages;
+  const messages = await getMessages();
   messages.forEach(message => socket.emit('message', message));
 
   //  Nouvel utilisateur
-  socket.on('user', async user => {
-    const userExists = await checkUser(user);
-    if (userExists) {
-      socket.emit("user:alreadyExists", "Désolé mais ce nom d'utilisateur existe déjà")
-      return;
-    }
-    socket.me = user;
-    users.push(user);
-    io.emit('user', user);
+  socket.on('user', user => {
+    checkUser(user)
+      .then(() => {
+        socket.me = user; // me
+        users.push(user); // add user
+        io.emit('user', user); // emit user
+      })
+      .catch(message => { // user does not exist
+        socket.emit("user:alreadyExists", message);
+      })
   });
 
   // Nouveau message

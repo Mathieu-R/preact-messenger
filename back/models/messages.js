@@ -12,13 +12,13 @@ const messageSchema = new Schema({
       required: true
     }
   },
-  content: {
-    type: String,
+  content: { // array of messages
+    type: Array,
     required: true
   },
-  time: {
+  time: { // already formated date
     required: true,
-    type: Date,
+    type: String,
     default: new Date()
   }
 });
