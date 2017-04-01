@@ -18,7 +18,7 @@ const messageSchema = new Schema({
   },
   time: { // already formated date
     required: true,
-    type: String,
+    type: String
   }
 });
 
