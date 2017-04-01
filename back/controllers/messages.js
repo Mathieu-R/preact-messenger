@@ -11,7 +11,7 @@ export async function getMessages() {
 
 }
 
-export async function postMessage(msg) {
+export function postMessage(msg) {
   Message.create(msg)
     .catch(e => console.log(e));
 }
