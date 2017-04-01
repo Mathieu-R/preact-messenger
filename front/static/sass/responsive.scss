@@ -1,0 +1,9 @@
+@media screen and (max-width: 550px) {
+
+  .user__panel {
+    transform: translate(-102%);
+    transition: transform .4s cubic-bezier(0, 0, 0.3, 1);
+    will-change: transform;
+  }
+
+}

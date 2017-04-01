@@ -6,7 +6,6 @@ import socketio from 'socket.io';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
-import ios from 'socket.io-express-session';
 import {h} from 'preact';
 import render from 'preact-render-to-string';
 import {readFile} from './utils';
@@ -35,7 +34,6 @@ const sessionConfig = {
 }
 
 app.use(session(sessionConfig));
-io.use(ios(session(sessionConfig)));
 
 //app.use(express.static('/static/', '../../dist'));
 
@@ -66,7 +64,7 @@ function checkUser(userToConnect) {
 }
 
 io.on('connection', async socket => {
-  console.log(socket.handshake.session);
+  console.log(users);
   // Envoi les utilisateurs au nouveau client
   users.forEach(user => socket.emit('user', user));
   const messages = await getMessages();

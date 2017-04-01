@@ -33,14 +33,14 @@ module.exports = isProd => {
 	];
 
 	if (isProd) {
-		babel.presets.push('babili');
+		//babel.presets.push('babili');
 
 		plugins.push(
 			new webpack.LoaderOptionsPlugin({ minimize: true, debug: false }),
 			new webpack.optimize.UglifyJsPlugin(uglify),
 			new ExtractText('styles.[hash].css'),
 			new SWPrecache({
-				filename: 'service-worker.js',
+				filename: 'sw.js',
 				dontCacheBustUrlsMatching: /./,
 				navigateFallback: 'index.html',
 				staticFileGlobsIgnorePatterns: [/\.map$/]
